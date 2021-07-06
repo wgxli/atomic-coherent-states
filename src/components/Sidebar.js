@@ -65,7 +65,7 @@ function Amplitudes({spin, amplitudes, setAmplitude}) {
     const output = [];
     for (let [i, entry] of Object.entries(amplitudes)) {
         if (i > spin - 1) continue;
-        const magnitude = Math.hypot(entry.x, entry.y);
+        const magnitude = entry.length();
 
         output.push(<div key={i} className={css`
             color: hsl(200, 10%, 30%);
@@ -84,6 +84,43 @@ function Amplitudes({spin, amplitudes, setAmplitude}) {
     }
     return <>{output}</>;
 }
+
+function ObservableEntry({name, value, err, unit}) {
+    const numString = `${value.toFixed(3)} \\, \\pm \\, ${err.toFixed(3)}`;
+    if (unit === undefined) {
+        return <InlineMath>{`\\langle ${name}\\rangle = ${numString}`}</InlineMath>;
+    }
+    return <InlineMath>{`\\langle ${name}\\rangle = (${numString}) \\, ${unit}`}</InlineMath>;
+}
+
+
+function Observables({spin, amplitudes}) {
+    let n = 0;
+    for (let i = 0; i < spin; i++) {
+        const prob = amplitudes[i].lengthSq();
+        n += prob * i;
+    }
+
+    let n_err = 0;
+    for (let i = 0; i < spin; i++) {
+        const prob = amplitudes[i].lengthSq();
+        n_err += prob * (i - n)**2;
+    }
+    n_err = Math.sqrt(n_err);
+
+    return <div className={css`
+        display: flex;
+        flex-direction: column;
+        
+        justify-content: space-between;
+        min-height: 60px;
+    `}>
+        <ObservableEntry name='N_{\mathrm{exc}}' value={n} err={n_err}/>
+        <ObservableEntry name='S_z' value={n - (spin-1)/2} err={n_err} unit='\hbar'/>
+    </div>
+}
+
+
 
 function normalizeWavefunction(uniforms) {
     // Normalize spin components
@@ -110,6 +147,7 @@ function normalizeWavefunction(uniforms) {
 export default function Sidebar({uniforms, setUniforms}) {
     const spin = uniforms.spin?.value;
     const atoms = spin - 1;
+    const amplitudes = uniforms.spinComponents?.value;
 
     function setSpin(value) {
         uniforms.spin.value = Math.max(2, Math.min(MAX_SPIN, value));
@@ -142,7 +180,6 @@ export default function Sidebar({uniforms, setUniforms}) {
 
         @media (max-width: 1000px) {
             min-width: unset;
-            height: 200px;
             padding: 20px;
 
             font-size: 14px;
@@ -165,8 +202,11 @@ export default function Sidebar({uniforms, setUniforms}) {
                 display: none;
             }
         `}>
+            <Header>Observables</Header>
+            <Observables spin={spin} amplitudes={amplitudes}/>
+
             <Header>Stretched Representation Amplitudes</Header>
-            <Amplitudes spin={spin} amplitudes={uniforms.spinComponents?.value} setAmplitude={setAmplitude}/>
+            <Amplitudes spin={spin} amplitudes={amplitudes} setAmplitude={setAmplitude}/>
         </div>
     </div>;
 };

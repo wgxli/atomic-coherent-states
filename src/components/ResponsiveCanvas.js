@@ -34,6 +34,12 @@ export default function ResponsiveCanvas({onInit, onResize, animate, initUniform
             z-index: 2;
 
             font-size: 24px;
+
+            @media (max-width: 1000px) {
+                font-size: 20px;
+                top: 16px;
+                left: 16px;
+            }
         `}><InlineMath>Q(\theta, \phi) \propto |\langle\theta, \phi \, | \, \psi\rangle|^2</InlineMath></div>
         <canvas
         id='main'
