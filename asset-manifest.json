@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/atomic-coherent-states/static/css/main.aae251bc.chunk.css",
-    "main.js": "/atomic-coherent-states/static/js/main.6ddf02d7.chunk.js",
-    "main.js.map": "/atomic-coherent-states/static/js/main.6ddf02d7.chunk.js.map",
+    "main.js": "/atomic-coherent-states/static/js/main.879c3bdf.chunk.js",
+    "main.js.map": "/atomic-coherent-states/static/js/main.879c3bdf.chunk.js.map",
     "runtime-main.js": "/atomic-coherent-states/static/js/runtime-main.1346bda8.js",
     "runtime-main.js.map": "/atomic-coherent-states/static/js/runtime-main.1346bda8.js.map",
     "static/css/2.abca8f11.chunk.css": "/atomic-coherent-states/static/css/2.abca8f11.chunk.css",
-    "static/js/2.f578f9f4.chunk.js": "/atomic-coherent-states/static/js/2.f578f9f4.chunk.js",
-    "static/js/2.f578f9f4.chunk.js.map": "/atomic-coherent-states/static/js/2.f578f9f4.chunk.js.map",
+    "static/js/2.60c9db87.chunk.js": "/atomic-coherent-states/static/js/2.60c9db87.chunk.js",
+    "static/js/2.60c9db87.chunk.js.map": "/atomic-coherent-states/static/js/2.60c9db87.chunk.js.map",
     "static/js/3.6426c93f.chunk.js": "/atomic-coherent-states/static/js/3.6426c93f.chunk.js",
     "static/js/3.6426c93f.chunk.js.map": "/atomic-coherent-states/static/js/3.6426c93f.chunk.js.map",
     "index.html": "/atomic-coherent-states/index.html",
     "static/css/2.abca8f11.chunk.css.map": "/atomic-coherent-states/static/css/2.abca8f11.chunk.css.map",
     "static/css/main.aae251bc.chunk.css.map": "/atomic-coherent-states/static/css/main.aae251bc.chunk.css.map",
-    "static/js/2.f578f9f4.chunk.js.LICENSE.txt": "/atomic-coherent-states/static/js/2.f578f9f4.chunk.js.LICENSE.txt",
+    "static/js/2.60c9db87.chunk.js.LICENSE.txt": "/atomic-coherent-states/static/js/2.60c9db87.chunk.js.LICENSE.txt",
     "static/media/katex.min.css": "/atomic-coherent-states/static/media/KaTeX_Typewriter-Regular.c5441b17.ttf",
     "static/media/sphereFrag.141cd3b6.glsl": "/atomic-coherent-states/static/media/sphereFrag.141cd3b6.glsl",
     "static/media/sphereVert.074410ee.glsl": "/atomic-coherent-states/static/media/sphereVert.074410ee.glsl"
@@ -21,8 +21,8 @@
   "entrypoints": [
     "static/js/runtime-main.1346bda8.js",
     "static/css/2.abca8f11.chunk.css",
-    "static/js/2.f578f9f4.chunk.js",
+    "static/js/2.60c9db87.chunk.js",
     "static/css/main.aae251bc.chunk.css",
-    "static/js/main.6ddf02d7.chunk.js"
+    "static/js/main.879c3bdf.chunk.js"
   ]
 }
