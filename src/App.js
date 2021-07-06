@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { css } from '@emotion/css';
+
+import 'katex/dist/katex.min.css';
+
+import ResponsiveCanvas from 'components/ResponsiveCanvas';
+import Sidebar from 'components/Sidebar';
+
+import handleInit from 'gl/initialize';
+import handleResize from 'gl/resize';
+import handleAnimationFrame from 'gl/animate';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [uniforms, setUniforms] = useState({});
+
+  return <div className={css`
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: row;
+
+        @media (max-width: 1000px) {
+             flex-direction: column;
+        }
+  `}>
+        <Sidebar
+            uniforms={uniforms}
+            setUniforms={setUniforms}
+        />
+        <ResponsiveCanvas
+            onInit={handleInit}
+            onResize={handleResize}
+            animate={handleAnimationFrame}
+
+            initUniforms={setUniforms}
+        />
+  </div>;
 }
 
 export default App;
