@@ -1,4 +1,4 @@
-# Atomic Coherent States <img src="public/android-chrome-192x192.png" width=32 alt="App Icon">
+# Atomic Coherent States <img src="public/logo192.png" width=32 alt="App Icon">
 An interactive [visualization](https://samuelj.li/atomic-coherent-states) of the stretched representation for many coupled two-level systems.
 
 ## What are atomic coherent states?
