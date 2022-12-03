@@ -26,6 +26,6 @@ void main() {
         ) * spinComponents[n];
     };
 
-    float value = dot(amplitude, amplitude);
+    float value = sqrt(dot(amplitude, amplitude));
     gl_FragColor = vec4(viridis(1. - value), 1.);
 }
