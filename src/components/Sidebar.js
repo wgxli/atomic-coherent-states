@@ -219,7 +219,7 @@ export default function Sidebar({uniforms, setUniforms}) {
         `}>
             <span className={css`
                 white-space: nowrap;
-                margin-right: 10px;
+                min-width: 80px;
             `}>{atoms}{atoms > 1 ? ' atoms' : ' atom'}</span>
             <Slider
                 value={atoms}
