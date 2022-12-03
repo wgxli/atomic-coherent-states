@@ -6,6 +6,8 @@ import fsResource from './shader/sphereFrag.glsl';
 const OrbitControls = require('three-orbit-controls')(THREE);
 
 export default async function initialize() {
+    console.log('Initializing WebGL');
+
     const canvas = document.getElementById('main');
     const gl = canvas.getContext('webgl');
 
@@ -27,13 +29,14 @@ export default async function initialize() {
     const uniforms = {
         spin: {value: 4},
         spinComponents: {value: [...new Array(MAX_SIZE)].map(() => new THREE.Vector2(0, 0))},
-        time: {value: 0},
+        drive: {value: 0},
+        detuning: {value: 0.5},
+        squeezing: {value: 0},
     };
     uniforms.spinComponents.value[0].x = Math.sqrt(0.5);
     uniforms.spinComponents.value[3].x = Math.sqrt(0.5);
     const sphere = new THREE.Mesh(
         new THREE.SphereGeometry(0.99, 32, 32),
-//        new THREE.IcosahedronGeometry(0.99, 5),
         new THREE.ShaderMaterial({
             defines: {
                 MAX_SIZE,

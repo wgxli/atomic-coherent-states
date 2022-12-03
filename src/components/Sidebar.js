@@ -85,6 +85,41 @@ function Amplitudes({spin, amplitudes, setAmplitude}) {
     return <>{output}</>;
 }
 
+function Drive({uniforms, setUniform}) {
+    const entries = [
+        ['Detuning', 'detuning'],
+        ['Drive Strength', 'drive'],
+        ['Squeezing', 'squeezing'],
+    ];
+    if (uniforms.drive === undefined) {return null;}
+
+    const output = [];
+    for (let [label, key] of entries) {
+        output.push(<div key={key} className={css`
+            color: hsl(200, 10%, 30%);
+            display: flex;
+            flex-direction: row;
+        `}>
+            <span className={css`
+                min-width: 120px;
+                color: hsl(200, 10%, 15%);
+                font-size: 12pt;
+                white-space: nowrap;
+            `}>
+                 {label}
+             </span>
+             <Slider
+                 min={-1} max={1} step={0.25}
+                 marks
+                 value={uniforms[key]?.value}
+                 onChange={(e, v) => setUniform(key, v)}
+                 valueLabelDisplay='auto'
+             />
+        </div>);
+    }
+    return <>{output}</>;
+}
+
 function ObservableEntry({name, value, err, unit}) {
     const numString = `${value.toFixed(3)} \\, \\pm \\, ${err.toFixed(3)}`;
     if (unit === undefined) {
@@ -115,33 +150,11 @@ function Observables({spin, amplitudes}) {
         justify-content: space-between;
         min-height: 60px;
     `}>
-        <ObservableEntry name='N_{\mathrm{exc}}' value={n} err={n_err}/>
         <ObservableEntry name='S_z' value={n - (spin-1)/2} err={n_err} unit='\hbar'/>
     </div>
 }
 
 
-
-function normalizeWavefunction(uniforms) {
-    // Normalize spin components
-    const spin = uniforms.spin.value;
-    const amplitudes = uniforms.spinComponents.value;
-
-    if (amplitudes !== undefined) {
-        let total = 0;
-        for (let i = 0; i < spin; i++) {
-            const probability = amplitudes[i].lengthSq();
-            if (probability === 0) {amplitudes[i].x = 1e-3;}
-            total += probability;
-        }
-        total = Math.sqrt(total + 1e-3);
-
-        for (let i = 0; i < spin; i++) {
-            amplitudes[i].x /= total;
-            amplitudes[i].y /= total;
-        }
-    }
-}
 
 
 export default function Sidebar({uniforms, setUniforms}) {
@@ -149,10 +162,13 @@ export default function Sidebar({uniforms, setUniforms}) {
     const atoms = spin - 1;
     const amplitudes = uniforms.spinComponents?.value;
 
-    function setSpin(value) {
-        uniforms.spin.value = Math.max(2, Math.min(MAX_SPIN, value));
-        normalizeWavefunction(uniforms);
+    function setUniform(name, value) {
+        uniforms[name].value = value;
         setUniforms({...uniforms});
+    }
+
+    function setSpin(value) {
+        setUniform('spin', Math.max(2, Math.min(MAX_SPIN, value)));
     }
 
     function setAmplitude(n, magnitude) {
@@ -165,11 +181,8 @@ export default function Sidebar({uniforms, setUniforms}) {
             obj.x *= magnitude / orig;
             obj.y *= magnitude / orig;
         }
-        normalizeWavefunction(uniforms);
         setUniforms({...uniforms});
     }
-
-
 
     return <div className={css`
         min-width: 400px;
@@ -192,6 +205,7 @@ export default function Sidebar({uniforms, setUniforms}) {
             step={1}
             min={1}
             max={MAX_SPIN-1}
+            marks
         />
 
         <Header>Spin Decomposition</Header>
@@ -202,10 +216,11 @@ export default function Sidebar({uniforms, setUniforms}) {
                 display: none;
             }
         `}>
-            <Header>Observables</Header>
-            <Observables spin={spin} amplitudes={amplitudes}/>
+            <Header>Drive Fields</Header>
+            <Drive uniforms={uniforms} setUniform={setUniform}/>
 
             <Header>Stretched Representation Amplitudes</Header>
+            <Observables spin={spin} amplitudes={amplitudes}/>
             <Amplitudes spin={spin} amplitudes={amplitudes} setAmplitude={setAmplitude}/>
         </div>
     </div>;

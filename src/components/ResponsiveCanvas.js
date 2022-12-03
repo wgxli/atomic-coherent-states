@@ -6,7 +6,7 @@ import { InlineMath } from 'react-katex';
 import useWindowSize from 'hooks/windowResize';
 
 
-export default function ResponsiveCanvas({onInit, onResize, animate, initUniforms}) {
+export default function ResponsiveCanvas({onInit, onResize, animate, setUniforms}) {
     const {width, height} = useWindowSize('canvas-container');
     const [ctx, setCtx] = useState(null);
 
@@ -14,10 +14,10 @@ export default function ResponsiveCanvas({onInit, onResize, animate, initUniform
         (async function() {
             const ctx = await onInit();
             setCtx(ctx);
-            initUniforms(ctx.uniforms);
-            animate(ctx);
+            setUniforms(ctx.uniforms);
+            animate(ctx, setUniforms);
         })();
-    }, [onInit, animate, initUniforms]);
+    }, [onInit, animate, setUniforms]);
     useEffect(() => {onResize(ctx, width, height);}, [onResize, ctx, width, height]);
 
     return <div id='canvas-container' className={css`

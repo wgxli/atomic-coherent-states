@@ -33,7 +33,7 @@ function App() {
             onResize={handleResize}
             animate={handleAnimationFrame}
 
-            initUniforms={setUniforms}
+            setUniforms={setUniforms}
         />
   </div>;
 }

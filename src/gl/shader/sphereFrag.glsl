@@ -1,5 +1,4 @@
 uniform int spin;
-uniform float time;
 varying vec4 vPos;
 
 uniform vec2 spinComponents[MAX_SIZE];
@@ -20,7 +19,7 @@ void main() {
     vec2 amplitude = vec2(0., 0.);
     for (int n = 0; n < MAX_SIZE; n++) {
         float omega = float(n) - spin_f;
-        float phase = omega * (phi + time);
+        float phase = omega * phi;
         amplitude += spinCoefficients[n] * mat2(
             cos(phase), sin(phase),
             -sin(phase), cos(phase)
