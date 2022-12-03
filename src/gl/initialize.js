@@ -27,14 +27,13 @@ export default async function initialize() {
 
     const MAX_SIZE = 14;
     const uniforms = {
-        spin: {value: 4},
+        spin: {value: 13},
         spinComponents: {value: [...new Array(MAX_SIZE)].map(() => new THREE.Vector2(0, 0))},
-        drive: {value: 0},
+        drive: {value: 0.5},
         detuning: {value: 0.5},
         squeezing: {value: 0},
     };
-    uniforms.spinComponents.value[0].x = Math.sqrt(0.5);
-    uniforms.spinComponents.value[3].x = Math.sqrt(0.5);
+    uniforms.spinComponents.value[6].x = 1;
     const sphere = new THREE.Mesh(
         new THREE.SphereGeometry(0.99, 32, 32),
         new THREE.ShaderMaterial({
