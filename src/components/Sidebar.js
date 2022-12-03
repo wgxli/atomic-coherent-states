@@ -99,12 +99,22 @@ function Drive({uniforms, setUniform}) {
             color: hsl(200, 10%, 30%);
             display: flex;
             flex-direction: row;
+            align-items: center;
+            
+            @media (max-width: 1000px) {
+                max-height: 24px;
+            }
+
         `}>
             <span className={css`
                 min-width: 120px;
                 color: hsl(200, 10%, 15%);
                 font-size: 12pt;
                 white-space: nowrap;
+
+                @media (max-width: 1000px) {
+                    font-size: 11pt;
+                }
             `}>
                  {label}
              </span>
@@ -193,31 +203,45 @@ export default function Sidebar({uniforms, setUniforms}) {
 
         @media (max-width: 1000px) {
             min-width: unset;
-            padding: 20px;
+            padding: 22px;
 
             font-size: 14px;
         }
     `}>
-        <span>{atoms}{atoms > 1 ? ' atoms' : ' atom'}</span>
-        <Slider
-            value={atoms}
-            onChange={(e, v) => setSpin(v+1)}
-            step={1}
-            min={1}
-            max={MAX_SPIN-1}
-            marks
-        />
+        <div className={css`
+            @media (max-width: 1000px) {
+                margin-top: -8px;
+                margin-bottom: -8px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+        `}>
+            <span className={css`
+                white-space: nowrap;
+                margin-right: 10px;
+            `}>{atoms}{atoms > 1 ? ' atoms' : ' atom'}</span>
+            <Slider
+                value={atoms}
+                onChange={(e, v) => setSpin(v+1)}
+                step={1}
+                min={1}
+                max={MAX_SPIN-1}
+                marks
+            />
+        </div>
 
         <Header>Spin Decomposition</Header>
         <InlineMath>{decomposition(atoms)}</InlineMath>
+
+        <Header>Drive Fields</Header>
+        <Drive uniforms={uniforms} setUniform={setUniform}/>
 
         <div className={css`
             @media (max-width: 1000px) {
                 display: none;
             }
         `}>
-            <Header>Drive Fields</Header>
-            <Drive uniforms={uniforms} setUniform={setUniform}/>
 
             <Header>Stretched Representation Amplitudes</Header>
             <Observables spin={spin} amplitudes={amplitudes}/>
